@@ -15,7 +15,6 @@ class Balloon
   float maxV;     // Maximum velocity
   float ribbonsw; // Ribbon swing
 
-  //covenient for array
   int array;
   
   //color of the balloon
@@ -23,34 +22,37 @@ class Balloon
 
   Balloon(int array_)
   {
+    // Velocity PVector
     v = new PVector(0, 0);
     
-    //f = new PVector(0,-0.02);
-    //f minus 0.01, in case acceleration too small
+    // Float PVector
     f = new PVector(0, random(-0.02));
     maxV = 2;
     w = random(15) + 30;
     h = random(10) + w * 1.33;
   
+    // Location PVector
     l = new PVector(random(width), random(height/2) + height * .5);
-    ribbonl = 80.0;
-    ribbonsw = 40;
+    ribbonl = 100;
+    ribbonsw = 50;
     array = array_;
     c = color(random(255), random(255), random(255));
   }
 
   void update()
   {
+    // Wind PVector
     wind = new PVector((noise(1, frameCount/200) - 0.3) * 0.01, 
                        (noise(2, frameCount/200) - 0.3) * 0.01);
   
+    // Acceleration PVector
     a = PVector.add(f, wind);
  
-    //println(a.x,a.y);
+    // Print a.x and a.y
     v.add(a);
     l.add(v);
   
-    //println(v.y);
+    // print v.y
     v.limit(2);
   
     if(v.y > maxV )
@@ -100,7 +102,7 @@ class Balloon
       }
     }
 
-    //println(v.y);
+    // Pring v.y
     if(l.x < w/2 || l.x > width - w/2)
     {
       v.x = v.x - 0.6;
